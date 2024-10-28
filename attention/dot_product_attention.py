@@ -4,4 +4,6 @@ class DotProductAttention:
 
     @staticmethod
     def compute_score(decoder_state, encoder_state):
-        return torch.matmul(decoder_state, encoder_state.transpose(-2, -1))
+        encoder_state_t = encoder_state.transpose(1, 2)
+        product = torch.matmul(decoder_state, encoder_state_t)
+        return product.squeeze()
