@@ -2,5 +2,9 @@ import torch
 
 class DotProductAttention:
 
-    def compute_score(self, decoder_state, encoder_state):
-        return torch.matmul(decoder_state, encoder_state.transpose(1, 2)).squeeze()
+    def compute_score(self, hidden_state, encoder_states):
+        h_t = hidden_state.squeeze(0)  # [batch, embedding_dim]
+        h_t = h_t.unsqueeze(2)  # [batch, embedding_dim, 1]
+        score = torch.bmm(encoder_states, h_t)  # Resultado es [batch, seq_len, 1]
+
+        return score.squeeze(2)

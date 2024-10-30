@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch
 
+# debe heredar de pytroch patra que se ajuste
 class BilinearAttention:
 
     def __init__(self):

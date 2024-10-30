@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+# debe heredar de pytroch patra que se ajuste
 class MLPAttention():
 
     def __init__(self):
