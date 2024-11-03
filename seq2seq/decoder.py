@@ -13,7 +13,7 @@ class Decoder(nn.Module):
         output, (hidden, cell) = self.rnn(x, (hidden, cell))
 
         # attention_weights -> [ batch_size = 8, 1 valor, X palabras en el encoder = 3] -> [ 8, 3]
-        attention_weights = self.attention.compute_score(hidden, outputs_encoder)
+        attention_weights = self.attention(hidden, outputs_encoder)
 
         # Normalized vectors -> [ 8, 3, 1]
         normalized_vectors = torch.softmax(attention_weights, dim=1).unsqueeze(-1)

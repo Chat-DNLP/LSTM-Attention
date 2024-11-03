@@ -1,29 +1,24 @@
 import torch
 import torch.nn as nn
 
-# debe heredar de pytroch patra que se ajuste
-class MLPAttention():
+class MLPAttention(nn.Module):
 
-    def __init__(self):
-        self.W1 = None
-        self.W2 = None
+    def __init__(self, decoder_hidden_dim, encoder_dim):
+        super().__init__()
+        self.W1 = nn.Linear(decoder_hidden_dim + encoder_dim, encoder_dim, bias=False)
+        self.W2 = nn.Linear(encoder_dim, 1, bias=False)
   
-    def compute_score(self, decoder_state, encoder_state):
+    def forward(self, decoder_hidden_state, encoder_states):
         # encoder_states: [batch_size, num_words, encoder_dim]
-        # decoder_state: [batch_size, 1, decoder_dim]
+        # decoder_state: [1, batch_size, decoder_dim]
 
-        decoder_state_dim = decoder_state.size(-1)
-        encoder_state_dim = encoder_state.size(-1)
+        decoder_hidden_state = decoder_hidden_state.permute(1, 0, 2) # [batch_size, 1, decoder_hidden_dim]
+        decoder_state_expanded = decoder_hidden_state.expand(-1, encoder_states.size(1), -1)
 
-        if self.W1 is None and self.W2 is None:
-            self.W1 = nn.Linear(decoder_state_dim + encoder_state_dim, encoder_state_dim, bias=False)
-            self.W2 = nn.Linear(encoder_state_dim, 1, bias=False)
+        concatenated = torch.cat((decoder_state_expanded, encoder_states), dim=2)
 
-        decoder_state_expanded = decoder_state.expand(-1, encoder_state.size(1), -1)
-        # [ batch = 8, num = 3, dim = 512*2]
-        concat_states = torch.cat((encoder_state, decoder_state_expanded), dim=-1)
+        tanh_output = torch.tanh(self.W1(concatenated)) 
 
-        score_tanh = torch.tanh(self.W1(concat_states))
-        attention_scores = self.W2(score_tanh).squeeze(-1)
+        attention_scores = self.W2(tanh_output).squeeze(2)
 
         return attention_scores
