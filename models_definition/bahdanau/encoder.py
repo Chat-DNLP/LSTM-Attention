@@ -7,22 +7,10 @@ class Encoder(nn.Module):
         self.rnn = nn.LSTM(input_dim, hidden_dim, num_layers, batch_first=True, bidirectional=True)
 
     def forward(self, x):
-        # [ batch_size, seq_len, hidden_dim * 2] 
+        # output = [ batch_size, seq_len, hidden_dim * 2] 
         output, (hidden, cell) = self.rnn(x)
 
-        print(output.shape)
-        print(hidden.shape)
-        # [ num_layers, batch size, hidden_dim]
-        hidden = self._combine_directions(hidden)
+        hidden = torch.cat((hidden[0], hidden[1]), dim=1).unsqueeze(0)  # [1, batch_size, hidden_dim * 2]
+        cell = torch.cat((cell[0], cell[1]), dim=1).unsqueeze(0)        # [1, batch_size, hidden_dim * 2]
 
-        print(hidden.shape)
-
-        cell = self._combine_directions(cell)
-        
         return output, (hidden, cell)
-
-    def _combine_directions(self, states):
-
-        forward_state = states[0::2]
-        backward_state = states[1::2]
-        return torch.cat((forward_state, backward_state), dim=2)

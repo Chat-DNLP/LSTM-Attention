@@ -11,18 +11,15 @@ class Seq2Seq(nn.Module):
         self.es_embeddings = torchtext.vocab.FastText(language='es')
         self.M = self.es_embeddings.vectors
         self.M = torch.cat((self.M, torch.zeros((4, self.M.shape[1]))), 0)
+        self.vocab_size = self.M.shape[0]
 
     def forward(self, source, target, teacher_forcing_ratio=0.5):
         target_len = target.shape[1]
         batch_size = target.shape[0]
 
-        # Tensor para almacenar las salidas del decoder
-        outputs = torch.zeros(batch_size, target_len, 985671)
-        
-        # Primero, la fuente es procesada por el encoder
+        outputs = torch.zeros(batch_size, target_len, self.vocab_size)
         outputs_encoder, (hidden, cell) = self.encoder(source)
 
-        # La primera entrada al decoder es el vector <sos>
         x = target[:, 0, :]
 
         for t in range(1, target_len):
