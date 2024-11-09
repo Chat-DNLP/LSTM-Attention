@@ -30,10 +30,10 @@ class Decoder(nn.Module):
 
         output_attention = torch.cat((summed_vectors, hidden_attention), dim=2)
         output_attention = self.linear(output_attention)
-        output_attention = torch.tanh(output_attention)
+        output_luong = torch.tanh(output_attention)
 
         # output = [8,1,512]
-        output = self.fc_out(output_attention)
+        output = self.fc_out(output_luong)
         # output = [8,1, tamaño_vocab]
 
         return output, (hidden, cell)

@@ -20,6 +20,7 @@ class Decoder(nn.Module):
 
         # [ 8, 3, 512] * [ 8, 3, 512] = [8, 3, 512]
         attention_output = normalized_vectors * outputs_encoder
+        
         # Promedio de los vectores -> [8, 1, 512]
         summed_vectors = torch.sum(attention_output, dim=1, keepdim=True)
 
