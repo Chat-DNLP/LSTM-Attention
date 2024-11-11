@@ -14,14 +14,10 @@ class Decoder(nn.Module):
 
         output, (hidden, cell) = self.rnn(x, (hidden, cell))
 
-        attention_weights = self.attention(hidden, outputs_encoder)
+        attention_vectors = self.attention(hidden, outputs_encoder)
 
-        normalized_vectors = torch.softmax(attention_weights, dim=1).unsqueeze(-1)
-        attention_output = normalized_vectors * outputs_encoder
-        summed_vectors = torch.sum(attention_output, dim=1, keepdim=True)
         hidden_attention = hidden.transpose(0, 1)
-
-        output_attention = torch.cat((summed_vectors, hidden_attention), dim=2)
+        output_attention = torch.cat((attention_vectors, hidden_attention), dim=2)
 
         output_attention = self.linear(output_attention)
         output = self.fc_out(output_attention)
