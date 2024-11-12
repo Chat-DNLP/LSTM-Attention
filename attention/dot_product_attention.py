@@ -15,7 +15,7 @@ class DotProductAttention(nn.Module):
         # Normalized vectors -> [ 8, 3, 1]
         normalized_vectors = torch.softmax(attention_weights, dim=1).unsqueeze(-1)
 
-        # [ 8, 3, 512] * [ 8, 3, 512] = [8, 3, 512]
+        # [ 8, 3, 512] =  [ 8, 3, 1] * [8, 3, 512]
         attention_output = normalized_vectors * encoder_states
 
         # Promedio de los vectores -> [8, 1, 512]
