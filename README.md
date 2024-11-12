@@ -57,4 +57,25 @@ normalized_vectors = torch.softmax(attention_weights, dim=1).unsqueeze(-1)
   <img src="images_readme/paso3.png" alt="Paso 3 atención" width=700 />
 </div>
 
+**Paso 4**. A continuación, dichos valores se multiplican por los cada uno de los *outputs* del *encoder* con a finalidad de ponderar cada uno de ellos. El áeea en rojo muestra el resultado del primer *score* por el vector *embedding* de la primera palabra del primer *batch*.
+
+```python
+attention_output = normalized_vectors * encoder_states
+```
+
+<div align="center">
+  <img src="images_readme/paso4.png" alt="Paso 4 atención" width=700 />
+</div>
+
+**Paso 5**. Finalmente, para obtener el vector de atención se suman los vectores y con ello se obtiene una media ponderada.
+
+```python
+summed_vectors = torch.sum(attention_output, dim=1, keepdim=True)
+```
+
+<div align="center">
+  <img src="images_readme/paso5.png" alt="Paso 5 atención" width=600 />
+</div>
+
+
 </div>
