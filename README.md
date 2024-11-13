@@ -86,6 +86,6 @@ summed_vectors = torch.sum(attention_output, dim=1, keepdim=True)
 
 ## 3. Modelos implementados
 
-Tal y como se mencionó previamente
+Tal y como se mencionó previamente, se ha implementado el modelo Seq2Seq con atención, Bahdanau y Luong.
 
 </div>
