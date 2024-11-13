@@ -141,7 +141,7 @@ Sin embargo, en el modelo de Luong, el cálculo de los *scores* de atención se 
 
 <div align="center">
     <img src="images_readme/luong.png" alt="Arquitectura Luong" width = 800>
-    <p> <Strong> Arquitectura del modelo Luong </Strong>
+    <p> <Strong> Arquitectura del modelo Luong. </Strong>
         Figura tomada de 
         <a href="https://lena-voita.github.io/nlp_course/seq2seq_and_attention.html" target="_blank">
             NLP Course by Lena Voita
