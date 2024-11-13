@@ -156,18 +156,22 @@ En primer lugar, cabe destacar que el conjunto de datos de entrenamiento constab
 Finalmente, las gráficas obtenidas durante el entrenamiento de los distintos modelos se presentan en las Figuras 3 y 4. En términos generales, todos los modelos alcanzan una pérdida baja durante el entrenamiento tal y como se muestra en la Figura 3.
 
 <div align="center">
-  <img src="images_readme/trainloss.png" alt=="Train loss" width =700 />
+  <img src="images_readme/trainloss.png" alt=="Train loss" width =600 />
     <p><strong>Figura 3.</strong> Pérdida durante el entrenamiento. </p> 
 </div>
 
 Sin embargo, en el conjunto de *test*, el modelo Bahdanau es el que presenta menor sobreajuste, mientras que el modelo Luong tiende a sobreajustarse más en este conjunto de datos reducidos.
 
 <div align="center">
-  <img src="images_readme/testloss.png" alt=="Train loss" width =700 />
+  <img src="images_readme/testloss.png" alt=="Train loss" width =600 />
     <p><strong>Figura 4.</strong>  Pérdida en el conjunto de <i>test</i>. </p> 
 </div>
 
+## 5. Créditos
 
+Este trabajo fue realizado por Susana Suárez Mendoza y Mara Pareja del Pino como parte de la realización de una práctica de la asignatura Procesamiento del Lenguaje Natural impartida en el grado de Ciencia e Ingeniería de Datos de la universidad de Las Palmas de Gran Canaria. 
 
+- [Mara Pareja](https://github.com/marapareja17)
+- [Susana Suárez](https://github.com/susanasrez)
 
 </div>
